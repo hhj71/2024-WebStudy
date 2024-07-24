@@ -1,0 +1,62 @@
+<!--
+				1. 단위
+						px		 / 		    %			 / 		em
+										백분율단위       배수 단위
+				
+				2.  색상 단위
+						background-color : red
+						background-color : rgb(255,255,200)
+						background-color : #F0F (255,0,255)
+						
+				3.  URL  단위						
+							background : url ('경로명')
+	-->	
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+		p:nth-child(1){
+				background-color: red;
+		}
+		p:nth-child(2){
+					/*font-size: 100%;*/
+					font-size: 1.0em;
+					background-color: #F00;
+		}
+		p:nth-child(3){
+					/*font-size: 150%;*/
+					font-size: 1.5em;
+					background-color: rgb(255,0,0);
+		}
+		p:nth-child(4){
+					/*font-size: 200%;*/
+					font-size: 2.0em;
+					background-color:  #FF0000;
+		}
+		div{
+			width: 500px;
+			height:  500px;
+			background-image: url('ico_user.png');
+			background-repeat: no-repeat; /*반복하지 않는다  /  repeat -> tile 만들때 사용*/
+			/*background-size: cover;*/
+		
+		}
+		h1{
+			color: white;
+			padding-left: 100px;
+			padding-top: 250px;
+		}
+</style>
+</head>
+<body>
+		<p>"이 제품은 가짜입니다" 명품 감정 결과 뒤집은 중고</p>
+		<p>“자녀들에게 주택 지분 나눠 증여하지 마세요”</p>
+		<p>“월급의 3분의 1을 대출 갚는 데 쓰는데…”내년</p>
+		<p>中 불법 OTT 서비스서 개인정보 노출…한국</p>
+		<div>
+					<h1> Hello Background </h1>
+		</div>
+</body>
+</html>
