@@ -1,0 +1,49 @@
+<!--
+			태그,  										전체, 																 아이디,  클래스
+			====										====																  =====
+			태그명{									*{																			#
+					CSS 속성 : 해당값					CSS 속성 : 값
+			}														=> 사이트 글꼴, margin / padding
+																}
+			
+			속성 선택자
+			=========
+				선택자[속성명=값]
+				input[type="text"]
+				<input type="text">
+				***a[href="http://www.daum.net"]
+				a[href^="http"] => http 시작  ==> equals
+				***a[href$="net"] => net으로 끝 ===> endswith
+				***a[href*="www"] => www가 포함된 문자열 ===> contains
+				a[href|="gif|jpg"]
+				<a href="http://www.daum.net">		
+	-->	
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	input[type="submit"]{
+		border-radius: 10px;
+	}
+	input[type^="b"]{
+		background-color: rebeccapurple;
+	}
+	input[type$="t"]{
+		background-color: darkcyan;
+	}
+	input[type*="b"]{
+		background-color: blue;
+		color: whitesmoke;
+	}
+</style>
+</head>
+<body>
+	<input type ="text" size="20"><br>
+	<input type="button" value="click"><br>
+	<input type="submit" value="전송"><br>
+	<input type="password" size="20">
+
+</body>
+</html>

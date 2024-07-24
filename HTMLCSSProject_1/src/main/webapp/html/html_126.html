@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	a{
+			display: block;
+			color:black;
+			text-decoration: none;
+	}
+	a:hover{
+		color: gray;
+		text-decoration: underline;
+	}
+	img{
+			width: 150px;
+			height: 200px;
+	}
+	img:hover{
+		cursor: pointer;  /* hand-cursor : 링크*/
+		border: 3px solid darkred; /* 테두리 : solid : 일반 라인선 */
+		opacity: 0.3; /* 투명도 조절 0.0~1.0*/
+	}
+</style>
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$('img').click(function(){
+			alert("그림 선택")
+		})
+	})
+</script>
+</head>
+<body>
+	<a href="#">"17만원에 손절하길 잘했다"…'2조 풀베팅'</a>
+	<a href="#">베트남 두리안 싹쓸이 하더니 돌연 "수입 안해"</a>
+	<a href="#">여름새 물총새 가족의 여름나기</a>
+	<a href="#">"살 빼기? 2-2-2를 기억하라!"</a>
+	<a href="#">주말부터 중부 장마…시간당 50㎜ 강한 비 월요일까지</a>
+	<img src="m1.jpg">
+	<img src="m2.jpg">
+	<img src="m3.jpg">
+	<img src="m4.jpg">
+	<img src="m5.jpg">
+	<img src="m6.jpg">
+	<img src="m7.jpg">
+</body>
+</html>
