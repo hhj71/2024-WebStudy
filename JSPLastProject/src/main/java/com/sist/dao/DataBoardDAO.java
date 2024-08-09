@@ -163,7 +163,8 @@ public class DataBoardDAO {
 			  if(db_pwd.equals(pwd))
 			  {
 				  result="yes";
-				  session.delete("databoardDelete",no);
+				  session.delete("databoardReplyDelete", no); // 댓글 삭제가 먼저 선행되어야
+				  session.delete("databoardDelete",no); // 게시글도 지울 수 있다 (외래키가 참조되어 있기 때문에)
 				  session.commit();
 			  }
 		  }catch(Exception ex)
@@ -177,6 +178,7 @@ public class DataBoardDAO {
 		  }
 	   return result;
    }
+   
    public static DataBoardVO databoardUpdateData(int no)
    {
 	   DataBoardVO vo=new DataBoardVO();
@@ -184,7 +186,6 @@ public class DataBoardDAO {
 		  try
 		  {
 			  session=ssf.openSession(); 
-			  
 			  vo=session.selectOne("databoardDetailData",no);
 			  
 		  }catch(Exception ex)
@@ -198,14 +199,66 @@ public class DataBoardDAO {
 		  }
 	   return vo;
    }
-   
-   public static List<DataBoardVO> databoardFindData(Map map)
+   public static String databoardGetPassword(int no)
    {
-	   List<DataBoardVO> list=new ArrayList<DataBoardVO>();
-	      SqlSession session=null;
+	   String pwd="";
+	   SqlSession session=null;
 		  try
 		  {
 			  session=ssf.openSession(); 
+			  pwd=session.selectOne("databoardGetPassword",no);
+			  
+		  }catch(Exception ex)
+		  {
+			  ex.printStackTrace();
+		  }
+		  finally
+		  {
+			  if(session!=null)
+				  session.close(); // 반환 (DBCP사용)
+		  }
+	   return pwd;
+   }
+   /*
+    *     <update id="databoardUpdate" parameterType="DataBoardVO">
+		     UPDATE project_databoard SET
+		     name=#{name},subject=#{subject},content=#{content},
+		     filename=#{filename},filesize=#{filesize}
+		     WHERE no=#{no}
+		   </update>
+    */
+   public static void databoardUpdate(DataBoardVO vo)
+   {
+	      SqlSession session=null;
+		  try
+		  {
+			  session=ssf.openSession(true); 
+			  session.update("databoardUpdate",vo);
+			  
+		  }catch(Exception ex)
+		  {
+			  ex.printStackTrace();
+		  }
+		  finally
+		  {
+			  if(session!=null)
+				  session.close(); // 반환 (DBCP사용)
+		  }
+   }
+   /*
+    *   <select id="databoardFindData" resultType="DataBoardVO" parameterType="hashmap">
+		    SELECT no,name,subject,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,hit
+		    FROM project_databoard
+		    WHERE ${fs} LIKE '%'||#{ss}||'%'
+		   </select>
+    */
+   public static List<DataBoardVO> databoardFindData(Map map)
+   {
+	   List<DataBoardVO> list=new ArrayList<DataBoardVO>();
+	   SqlSession session=null;
+		  try
+		  {
+			  session=ssf.openSession(true); 
 			  list=session.selectList("databoardFindData",map);
 			  
 		  }catch(Exception ex)
@@ -219,5 +272,4 @@ public class DataBoardDAO {
 		  }
 	   return list;
    }
-   					
 }

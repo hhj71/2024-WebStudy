@@ -19,23 +19,23 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript">
 $(function(){
-	$('button').click(function(){
+	$('#findBtn').click(function(){
 		let names=[]
-		$('input[name="names"]').each(function(){
-		    if($(this).is(":checked"))
-		    {
-		       console.log($(this).val())
-		       names.push($(this).val())	
-		    }
+		$('input[name="names"]').each(function(){ // for문 
+			if($(this).is(":checked"))// 체크여부 여부 
+			{
+				//console.log($(this).val())
+				names.push($(this).val())// 배열에 값을 담는다 
+				// $(this) => 선택된 체크박스 읽기 
+			}
 		})
 		console.log(names)
 		$.ajax({
 			type:'post',
-			url:'../emp/find_ok.do',
+			url:'../emp/emp_find.do',
 			data:{"names":names},
-			success:function(result)
-			{
-				$('#print').html(result)
+			success:function(result){
+				$('#print').html(result) 
 			},
 			error:function(request,status,error)
 			{
@@ -47,29 +47,27 @@ $(function(){
 </script>
 </head>
 <body>
-   <div class="container">
-    <div class="row">
-    <!-- <form method=post action="find_ok.do"> -->
-     <table class="table">
-      <tr>
+  <div class="container">
+   <div class="row">
+    <table class="table">
+     <tr>
+      <td class="text-center">
+       <c:forEach var="name" items="${list }">
+         <input type="checkbox" value="${name }" name="names">${name }
+       </c:forEach>
+      </td>
+     </tr>
+     <tr>
        <td class="text-center">
-         <c:forEach var="name" items="${list }">
-           <input type=checkbox name="names" value="${name }">${name }
-         </c:forEach>
+         <input type=button class="btn-sm btn-danger" id="findBtn" value="검색">
        </td>
-      </tr>
-      <tr>
-       <td class="text-center">
-         <button class="btn-sm btn-success">검색</button>
-       </td>
-      </tr>
-     </table>
-     <!-- </form> -->
-    </div>
-    <div style="height: 10px"></div>
-    <div class="row" id="print">
-      
-    </div>
+     </tr>
+    </table>
    </div>
+   <div style="height: 20px"></div>
+   <div class="row" id="print">
+    
+   </div>
+  </div>
 </body>
 </html>
