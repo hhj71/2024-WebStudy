@@ -152,6 +152,12 @@ public class DataBoardDAO {
 	   return vo;
    }
    // 실제 삭제 
+   /*
+    *  <delete id="databoardReplyDelete" parameterType="int">
+	    DELETE FROM project_board_reply
+	    WHERE bno=#{no}
+	   </delete>
+    */
    public static String databoardDelete(int no,String pwd)
    {
 	   String result="no";
@@ -163,8 +169,8 @@ public class DataBoardDAO {
 			  if(db_pwd.equals(pwd))
 			  {
 				  result="yes";
-				  session.delete("databoardReplyDelete", no); // 댓글 삭제가 먼저 선행되어야
-				  session.delete("databoardDelete",no); // 게시글도 지울 수 있다 (외래키가 참조되어 있기 때문에)
+				  session.delete("databoardReplyDelete",no);
+				  session.delete("databoardDelete",no);
 				  session.commit();
 			  }
 		  }catch(Exception ex)

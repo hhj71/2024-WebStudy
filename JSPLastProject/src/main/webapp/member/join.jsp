@@ -9,20 +9,30 @@
 <link rel="stylesheet" href="../shadow/css/shadowbox.css">
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript" src="../shadow/js/shadowbox.js"></script>
+<script type="text/javascript" src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
 Shadowbox.init({
 	players:['iframe']
 })
 $(function(){
-	/* $('#checkBtn').click(function(){
+	$('#checkBtn').on('click',function(){
 		Shadowbox.open({
-			content:'../member/idcheck.jsp',
+			content:'../member/idcheck.do',
 			player:'iframe',
-			title:'아이디중복체크',
-			width:350,
-			height:250
-		}) 
-	})*/
+			width:370,
+			height:200,
+			title:'아이디 중복체크'
+		})
+	})
+	$('#postBtn').click(function(){
+		new daum.Postcode({
+			oncomplete:function(data)
+			{
+				$('#post1').val(data.zonecode)
+				$('#addr1').val(data.address)
+			}
+		}).open()
+	})
 })
 </script>
 </head>

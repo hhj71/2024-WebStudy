@@ -2,34 +2,34 @@
 <!DOCTYPE mapper
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
- <mapper namespace="com.sist.mapper.databoard-mapper">
- 	<!-- 
- 			<sql>	: SQL 문장의 중복 제거 = <include>
- 			<select id="" 		resultType="" 					parameterType="" 	resultMap="">	
- 						====		==========					================	===========
- 						구분자	 결과값(SQL => 담는 변수)	?에 값을 채운다			컬럼명이 다른 경우
- 																														=> 컬럼명 / VO의 변수명
- 			<resultMap id= ""  type="BoardVO">
- 				<result column ="board_no" property="dvo.no"/>
- 			</resultMap> => JOIN => vo.getDvo().setName																				
- 																														
- 			컬럼명 : board_no , board_name ..
- 			VO : no name subject
- 			SELECT board_no as no, name, subject	....
- 			=================================
- 					setBoard_no()
- 					setNo() . setName(), setSubject()																										
- 			<insert id=""	parameterType=""> = <selectKey> : 자동증가번호
- 			<update id=""	parameterType="">
- 			<delete id=""	parameterType="">
- 			= id는 중복이 되면 안된다
- 				==================  HTML/CSS = JavaScript : <jsp:include>
- 				#{} / ${} => 구분
- 				
- 				JOIN / SUBQuery
-  	 -->
-  	 <!--  추가  -->
-    <insert id="databoardInsert" parameterType="DataBoardVO">
+<mapper namespace="com.sist.mapper.databoard-mapper">
+  <!-- 
+        <sql> : SQL문장의 중복 제거 = <include>
+        <select id="" resultType="" parameterType="" resultMap=""> 
+                ===== ============= ================ ============
+                                      ?에 값을 채운다    컬럼명이 다른 경우 
+                구분자   결과값 (SQL => 담는 변수)          => 컬럼명 / VO의 변수명
+        <resultMap id="" type="BoardVO">
+         <result column="board_no" property="dvo.no"/>
+        </resultMap> => JOIN  => vo.getDvo().setName()
+        컬럼명 : board_no board_name board_subject ...
+        VO   : no name subject
+        SELECT board_no as no,name,subject...
+        =========================
+               setBoard_no()
+               setNo() , setName() , setSubject()
+        <insert id="" parameterType=""> = <selectKey>:자동증가번호 
+        <update id="" parameterType="">
+        <delete id="" parameterType="">
+        = id는 중복이 되면 안된다 
+          ================= HTML/CSS = JavaScript:<jsp:include>
+          
+          #{} / ${} = 구분
+          
+          JOIN / SUBQuery 
+   -->
+   <!-- 추가 -->
+   <insert id="databoardInsert" parameterType="DataBoardVO">
     INSERT INTO project_databoard VALUES(
      (SELECT NVL(MAX(no)+1,1) FROM project_databoard),
      #{name},#{subject},#{content},#{pwd},SYSDATE,0,
@@ -91,18 +91,17 @@
     DELETE FROM project_databoard
     WHERE no=#{no}
    </delete>
-   <delete id=databoardReply
+   <delete id="databoardReplyDelete" parameterType="int">
+    DELETE FROM project_board_reply
+    WHERE bno=#{no}
+   </delete>
    <!-- *** 동적 쿼리 : 검색 
-   			
-   				${}	=> 문자열 => 컬럼, 테이블명 지정 => ' ' 사용하지 않는다 
-   				#{}   => 문자열 => 일반 데이터 => 원래 ' ' 사용하는 경우
-   				  ex) WHERE name = '홍길동'
-   
-			조건걸고 검색 할 때 다른 것도 같이 검색되지 않게 OR / AND 사용이 필요함    
-   						overrides ==> 제거할 때 사용 (앞/뒤)
-   						
+        ${} => 문자열 => 컬럼/테이블명 지정 => ''사용하지 않는다 
+        #{} => 문자열 => 일반 데이터 => '' 사용 
+        
+        WHERE name='홍길동'
    -->
-     <!-- 
+   <!-- 
         WHERE 
         <if test="fs=='N'">
          name LIKE ~
